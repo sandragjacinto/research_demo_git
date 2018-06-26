@@ -37,14 +37,15 @@ for jj = 1 : numel(subjects)  %
                          as = reshape(as,EEG.pnts,EEG.trials);
                          tf(fi,:,:)=as;
                     end
-        % normalize and baseline correction
+                
+                % normalize and baseline correction
                  tmpbase=1:size(tf,2);
                  mstd = std(tf(:,tmpbase,:),[],2);
                  mbase = mean(tf(:,tmpbase,:),2);
                  P = bsxfun(@rdivide, bsxfun(@minus, tf, mbase), mstd);
                  tfCohen = mean(abs(P).^2,3);
                  tfCohen = 10*log10( bsxfun(@rdivide, tfCohen, mean(tfCohen(:,baseidx(1):baseidx(2)),2)) );
-                 tf_chan(chan,:,:)=tfCohen; 
+                 tf_chan(chan,:,:) = tfCohen; 
             end                   
            FILENAME= strcat(char(subjects{jj}), (cond{ii}), '_TFRpowInd'); % here we try to create a *.mat file name holding the subject's number, the condition and type of analysis(TF here)
            eval([FILENAME '= tf_chan;']);  % it is like renaming the template TF by using the new *.mat filename (FILENAME1)
