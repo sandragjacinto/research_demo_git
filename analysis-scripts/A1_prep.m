@@ -22,6 +22,8 @@ for ss=1:length(sujets);
     for tt= 1:length (eventsOI) % boucle pour chaque trigger
        trig=eventsOI(tt);    %% trig = 
 
+
+       
         %% extraire\downsampler les données
         % definir les trials (ft_definetrial) 
         cfg = [];
